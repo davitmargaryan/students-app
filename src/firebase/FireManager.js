@@ -32,4 +32,14 @@ export default class FireManager {
                 });
         }
     }
+
+    static getStudents(){
+        var studentsRef = firestore().collection("students");
+
+        return studentsRef.get().then(function(querySnapshot) {
+            return querySnapshot.docs.map(doc => doc.data());
+        }).catch(function (error) {
+            console.error("Error getting students:", error);
+        });
+    }
 }

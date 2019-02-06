@@ -1,42 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import FireManager from "./firebase/FireManager";
+import Students from './components/students'
 import './App.css';
 
 class App extends Component {
 
   state = {
-    userName: ''
+    userName: '',
+      age: 0
   };
 
   componentDidMount(){
     FireManager.getStudent('awhmXpzGdG5I1PkFFyl1').then(user => {
-      this.setState({username: user.name})
+      this.setState({username: user.name, age: user.age})
     })
   }
 
   render() {
-    const {username} = this.state;
+    const {username, age} = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <p>
-            {username}
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <Router>
+          <>
+            <Route exact path="/" render={()=> <p>Invalid Rout</p>}/>
+            <Route path="/students" component={Students}/>
+          </>
+        </Router>
     );
   }
 }
