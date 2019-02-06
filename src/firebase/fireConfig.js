@@ -4,7 +4,11 @@ import 'firebase/firestore'
 
 const config = {
     apiKey: "AIzaSyDLZQ8OTi_jVsvgXijQXWexX-bo2799Mko",
-    projectId: "students-cf2af"
+    authDomain: "students-cf2af.firebaseapp.com",
+    databaseURL: "https://students-cf2af.firebaseio.com",
+    projectId: "students-cf2af",
+    storageBucket: "students-cf2af.appspot.com",
+    messagingSenderId: "137594433557"
 };
 
 
