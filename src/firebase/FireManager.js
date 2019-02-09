@@ -34,7 +34,7 @@ export default class FireManager {
     }
 
     static getStudents(){
-        var studentsRef = firestore().collection("students");
+        const studentsRef = firestore().collection("students");
 
         return studentsRef.get().then(function(querySnapshot) {
             return querySnapshot.docs.map(doc => doc.data());
