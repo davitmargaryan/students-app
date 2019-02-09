@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import FireManager from '../../firebase/FireManager'
+import Profile from './Profile'
+import StudentsList from './StudentsList';
+import AddStudentsForm from './AddStudentsForm';
 
 class Students extends Component {
 
@@ -16,14 +20,22 @@ class Students extends Component {
 
     render() {
         const { students } = this.state;
+        const StudentsListHOC = function(){
+            return (
+                <>
+                    <StudentsList students={students}/>
+                    <AddStudentsForm />
+                </>
+            )
+        };
         return (
-            <div className="App">
-                {students.map(student =>
-                    {return <div key={student.sId}>
-                                <Link to={`/students/${student.sId}`}>{student.name}</Link>
-                            </div>}
-                )}
-            </div>
+            <Router>
+                <>
+                    <Route exact path="/students"  component={StudentsListHOC}  />
+                    <Route path="/students/:studentId" component={Profile}/>
+            </>
+            </Router>
+
         );
     }
 }
