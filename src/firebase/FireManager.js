@@ -6,7 +6,8 @@ export default class FireManager {
         if (student.id) {
             return firestore().collection("students").doc(student.id).set(student)
                 .then(() => {
-                    console.log("Document successfully written!");
+                    console.log("Document successfully added!");
+                    window.parent.location = window.parent.location.href
                 })
                 .catch(error => {
                     console.error("Error writing document: ", error);
@@ -42,4 +43,38 @@ export default class FireManager {
             console.error("Error getting students:", error);
         });
     }
+
+    static removeStudent(student) {
+        if (student.id) {
+          return firestore()
+            .collection("students")
+            .doc(student.id)
+            .delete()
+            .then(() => {
+              console.log("Document successfully written!");
+              window.parent.location = window.parent.location.href
+            })
+            .catch(error => {
+              console.error("Error writing document: ", error);
+            });
+        } else {
+          console.error("need to pass an object with existing id property");
+        }
+    }
+    static editStudent(student) {
+        if (student.id) {
+          return  firestore()
+          .collection("students")
+          .doc(student.id).update({...student}).then(() => {
+            console.log("Document successfully written!");
+            window.parent.location = window.parent.location.href
+          })
+          .catch(error => {
+            console.error("Error writing document: ", error);
+          });
+      } else {
+        console.error("need to pass an object with existing id property");
+      }
+            
+        }
 }

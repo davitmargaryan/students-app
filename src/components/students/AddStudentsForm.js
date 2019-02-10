@@ -28,7 +28,7 @@ export default function AddStudentsForm() {
             id
         };
         FireManager.addStudent(student).then(() => {
-            alert('Success')
+            console.log('Success')
         })
     };
 
