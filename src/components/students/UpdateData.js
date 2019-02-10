@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { v4 } from "uuid";
 import FireManager from "../../firebase/FireManager";
 
-export default function AddStudentsForm() {
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [age, setAge] = useState(0);
+export default function UpdateData(props) {
+  const [name, setName] = useState(`${props.student.name}`);
+  const [surname, setSurname] = useState(`${props.student.surname}`);
+  const [age, setAge] = useState(`${props.student.age}`);
 
   const handleNameChange = function(e) {
     setName(e.target.value);
@@ -19,40 +18,40 @@ export default function AddStudentsForm() {
     setAge(e.target.value);
   };
 
-  const handleAddStudentClick = function() {
-    const id = v4();
+  const handleUpdateData = function() {
     const student = {
       name,
       surname,
       age,
-      id
+      id: props.student.id
     };
-    FireManager.addStudent(student).then(() => {
+    FireManager.editStudent(student).then(() => {
       console.log("Success");
     });
+    console.log(student);
   };
 
   return (
     <div>
       <input
-        placeholder="name"
+        placeholder={props.student.name}
         type="text"
         value={name}
         onChange={handleNameChange}
       />
       <input
-        placeholder="surname"
+        placeholder={props.student.surname}
         type="text"
         value={surname}
         onChange={handleSurnameChange}
       />
       <input
-        placeholder="age"
+        placeholder={props.student.age}
         type="number"
         value={age}
         onChange={handleAgeChange}
       />
-      <button onClick={handleAddStudentClick}>Add</button>
+      <button onClick={handleUpdateData}>Update</button>
     </div>
   );
 }
