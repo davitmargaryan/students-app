@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import FireManager from "../../firebase/FireManager";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export default function UpdateData(props) {
   const [name, setName] = useState(`${props.student.name}`);
@@ -25,6 +27,21 @@ export default function UpdateData(props) {
       age,
       id: props.student.id
     };
+
+    function toFixObject(obj) {
+      if (!obj.name) {
+        obj.name = props.student.name;
+      }
+      if (!obj.surname) {
+        obj.surname = props.student.surname;
+      }
+      if (!obj.age) {
+        obj.age = props.student.age;
+      }
+      return obj;
+    }
+    toFixObject(student);
+
     FireManager.editStudent(student).then(() => {
       console.log("Success");
     });
@@ -32,26 +49,44 @@ export default function UpdateData(props) {
   };
 
   return (
-    <div>
-      <input
+    <div
+      style={{ display: "none" }}
+      id={props.student.id}
+      style={{ display: "none" }}
+      className="divInputUpdate"
+    >
+      <TextField
+        className="textFieldUpdate"
+        variant="outlined"
         placeholder={props.student.name}
         type="text"
         value={name}
         onChange={handleNameChange}
       />
-      <input
+      <TextField
+        className="textFieldUpdate"
+        variant="outlined"
         placeholder={props.student.surname}
         type="text"
         value={surname}
         onChange={handleSurnameChange}
       />
-      <input
+      <TextField
+        className="textFieldUpdate"
+        variant="outlined"
         placeholder={props.student.age}
         type="number"
         value={age}
         onChange={handleAgeChange}
       />
-      <button onClick={handleUpdateData}>Update</button>
+      <Button
+        variant="contained"
+        color="primary"
+        className="buttonEdit"
+        onClick={handleUpdateData}
+      >
+        Update
+      </Button>
     </div>
   );
 }

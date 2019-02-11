@@ -1,5 +1,9 @@
 .App {
+  margin: 0 auto;
+  width: 600px;
   text-align: center;
+  border: 2px solid blue;
+  border-radius: 5px;
 }
 
 .App-logo {
@@ -29,4 +33,45 @@
   to {
     transform: rotate(360deg);
   }
+}
+/*  */
+
+.textField {
+  height: 40px;
+}
+
+.addStudentButton {
+  width: 224px;
+}
+
+.containerRemoveEdit {
+  border: 2px solid black;
+  max-width: 200px;
+  /* float: right; */
+}
+.containerLink {
+  border: 2px solid black;
+  max-width: 350px;
+  /* float: left; */
+}
+.divItem {
+  box-shadow: 0 0 20px blue;
+  margin-top: 2px;
+  font-size: 22px;
+  background-color: #f89d55;
+}
+
+.textFieldUpdate {
+  height: 30px;
+  width: 170px;
+}
+.divInputUpdate {
+  padding-top: 5px;
+  background-color: #d4cece;
+}
+.buttonEdit {
+  width: 10px;
+}
+.linkStyle {
+  text-decoration: none;
 }
