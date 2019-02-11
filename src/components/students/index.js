@@ -5,12 +5,20 @@ import FireManager from '../../firebase/FireManager'
 import Profile from './Profile'
 import StudentsList from './StudentsList';
 import AddStudentsForm from './AddStudentsForm';
+import Grid from '@material-ui/core/Grid';
+import { app } from 'firebase';
+
+const divStyle = {
+    margin: '40px',
+    border: '5px solid '
+  };
 
 class Students extends Component {
 
     state = {
         students: []
     };
+    
 
     componentDidMount(){
         FireManager.getStudents().then(students => {
@@ -22,10 +30,16 @@ class Students extends Component {
         const { students } = this.state;
         const StudentsListHOC = function(){
             return (
-                <>
+               <div style={divStyle} className="marg">
                     <StudentsList students={students}/>
                     <AddStudentsForm />
-                </>
+               </div>
+                
+                // <Grid container spacing={24}>
+                //     <Grid item xs={24} md={6} sm={12}>
+                //     </Grid>
+                // </Grid>
+
             )
         };
         return (
@@ -33,7 +47,7 @@ class Students extends Component {
                 <>
                     <Route exact path="/students"  component={StudentsListHOC}  />
                     <Route path="/students/:studentId" component={Profile}/>
-            </>
+                 </>
             </Router>
 
         );
