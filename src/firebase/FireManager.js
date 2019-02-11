@@ -2,21 +2,10 @@ import { firestore } from "firebase";
 
 export default class FireManager {
   static addStudent(student) {
-    if (student.id) {
       return firestore()
-        .collection("students")
-        .doc(student.id)
-        .set(student)
-        .then(() => {
-          console.log("Document successfully written!");
-          window.parent.location = window.parent.location.href;
-        })
-        .catch(error => {
-          console.error("Error writing document: ", error);
-        });
-    } else {
-      console.error("need to pass an object with existing id property");
-    }
+          .collection("students")
+          .doc(student.id)
+          .set(student)
   }
 
   static removeStudent(student) {

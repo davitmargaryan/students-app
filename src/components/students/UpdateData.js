@@ -58,7 +58,7 @@ export default function UpdateData(props) {
       <TextField
         className="textFieldUpdate"
         variant="outlined"
-        placeholder={props.student.name}
+        placeholder="Name"
         type="text"
         value={name}
         onChange={handleNameChange}
@@ -66,7 +66,7 @@ export default function UpdateData(props) {
       <TextField
         className="textFieldUpdate"
         variant="outlined"
-        placeholder={props.student.surname}
+        placeholder="Surname"
         type="text"
         value={surname}
         onChange={handleSurnameChange}
@@ -74,7 +74,7 @@ export default function UpdateData(props) {
       <TextField
         className="textFieldUpdate"
         variant="outlined"
-        placeholder={props.student.age}
+        placeholder="Age"
         type="number"
         value={age}
         onChange={handleAgeChange}

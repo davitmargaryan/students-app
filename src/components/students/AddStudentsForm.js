@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
-import FireManager from "../../firebase/FireManager";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-export default function AddStudentsForm() {
+export default function AddStudentsForm(props) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [age, setAge] = useState(0);
@@ -22,6 +21,7 @@ export default function AddStudentsForm() {
   };
 
   const handleAddStudentClick = function() {
+      debugger;
     const id = v4();
     const student = {
       name,
@@ -29,9 +29,7 @@ export default function AddStudentsForm() {
       age,
       id
     };
-    FireManager.addStudent(student).then(() => {
-      console.log("Success");
-    });
+    props.addStudent(student);
   };
 
   return (
@@ -74,6 +72,7 @@ export default function AddStudentsForm() {
       >
         ADD
       </Button>
+        <div>{props.addStudentError}</div>
     </div>
   );
 }

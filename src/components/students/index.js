@@ -8,7 +8,8 @@ import AddStudentsForm from "./AddStudentsForm";
 
 class Students extends Component {
   state = {
-    students: []
+      students: [],
+      addStudentError: ''
   };
 
   componentDidMount() {
@@ -18,18 +19,32 @@ class Students extends Component {
   }
 
   render() {
-    const { students } = this.state;
-    const StudentsListHOC = function() {
+    const { students, addStudentError } = this.state;
+    const StudentsListHOC = () => {
+      const addStudent = (student) => {
+          if(!student.id){return}
+          FireManager.addStudent(student).then(() => {
+              this.setState({
+                  students: [
+                      ...students,
+                      student
+                  ]
+              })
+          }).catch(err=> {
+            this.setState({addStudentError: err && err.message})
+          });
+      };
       return (
         <>
           <StudentsList students={students} />
-          <AddStudentsForm />
+          <AddStudentsForm addStudentError={addStudentError} addStudent={addStudent}/>
         </>
       );
     };
     return (
       <Router>
         <>
+          <Route exact path="/" component={StudentsListHOC} />
           <Route exact path="/students" component={StudentsListHOC} />
           <Route path="/students/:studentId" component={Profile} />
         </>
