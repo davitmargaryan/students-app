@@ -1,7 +1,10 @@
 //import React from "react";
 import React, { useState } from 'react';
 import FireManager from '../../firebase/FireManager';
-import { debug } from 'util';
+// import { debug } from 'util';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
 
 export default function UpdateData(props) {
     const [name, setName] = useState(`${props.student.name}`);
@@ -23,7 +26,6 @@ export default function UpdateData(props) {
     };
 
      const handleUpdateData = function(){
-       debugger;
         const student = {
             name,
             surname,
@@ -31,9 +33,8 @@ export default function UpdateData(props) {
             id:props.student.id
         };
         function toFixObject (obj) {
-            debugger;
             if (!obj.name) {obj.name = props.student.name};
-            if (!obj.surname) {obj.surname = props.student.surnname};
+            if (!obj.surname) {obj.surname = props.student.surname};
             if (!obj.age) {obj.age = props.student.age};
             return obj
         };
@@ -43,12 +44,13 @@ export default function UpdateData(props) {
         })
         console.log(student);
      }
+
  return (
-   <div>
-     <input placeholder={props.student.name} type="text" value={name} onChange={handleNameChange} />
-     <input placeholder={props.student.surname}  type="text" value={surname} onChange={handleSurnameChange}/>
-     <input placeholder={props.student.age} type="number" value={age} onChange={handleAgeChange} />
-     <button onClick = {handleUpdateData}>Update</button>
+   <div id = {props.student.id} style = {{display:"none"}}className = 'divInputUpdate'>
+     <TextField className="textFieldUpdate"variant="outlined" placeholder={props.student.name} type="text" value={name} onChange={handleNameChange} />
+     <TextField className="textFieldUpdate"type="text"variant="outlined" value={surname} onChange={handleSurnameChange}/>
+     <TextField className="textFieldUpdate" variant="outlined" placeholder={props.student.age} type="number" value={age} onChange={handleAgeChange} />
+     <Button onClick = {handleUpdateData} variant="contained"color="primary" className = 'buttonEdit'>Update</Button>
    </div>
  );
 }

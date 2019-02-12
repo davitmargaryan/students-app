@@ -1,5 +1,9 @@
 .App {
+  margin:0 auto;
+  width:600px;
   text-align: center;
+  border:2px solid blue;
+  border-radius:5px;
 }
 
 .App-logo {
@@ -30,3 +34,35 @@
     transform: rotate(360deg);
   }
 }
+.divItem{
+  box-shadow:0 0 20px blue;
+  margin-top:2px;
+  font-size: 22px;
+  background-color:#f89d55
+}
+.divForButtons{
+  display:inline-block;
+  margin-right:0px;
+}
+.textField {
+  height: 40px;
+ }
+ 
+ .addStudentButton {
+  width: 224px;
+ }
+.textFieldUpdate {
+  height: 30px;
+  width:170px;
+ }
+ .divInputUpdate{
+   padding-top:5px;
+   background-color:#d4cece;
+ }
+ .buttonEdit{
+   width:10px;
+ }
+ .linkStyle{
+   text-decoration:none;
+   color:#3d3d3d;
+ }

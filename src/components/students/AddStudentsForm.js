@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { v4 } from 'uuid';
-import FireManager from '../../firebase/FireManager'
+import FireManager from '../../firebase/FireManager';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export default function AddStudentsForm() {
     const [name, setName] = useState('');
@@ -27,17 +29,27 @@ export default function AddStudentsForm() {
             age,
             id
         };
+        //y
         FireManager.addStudent(student).then(() => {
             console.log('Success')
         })
     };
 
     return (
-        <div>
-            <input placeholder="name" type="text" value={name} onChange={handleNameChange}/>
-            <input placeholder="surname" type="text" value={surname} onChange={handleSurnameChange}/>
-            <input placeholder="age" type="number" value={age} onChange={handleAgeChange}/>
-            <button onClick={handleAddStudentClick}>Add</button>
+        <div >
+          <div>
+            <TextField className="textField"type="text"variant="outlined"placeholder="name" value={name} onChange={handleNameChange}/>
+          </div>
+          <div>
+            <TextField className="textField"type="text" variant="outlined"placeholder="surname"value={surname} onChange={handleSurnameChange}
+            />
+          </div>
+          <div>
+            <TextField className="textField" type="age"variant="outlined"placeholder="number"value={age} onChange={handleAgeChange} />
+          </div>
+          <Button className="addStudentButton"onClick={handleAddStudentClick}variant="contained"color="primary">
+            ADD
+          </Button>
         </div>
-    );
+      );
 }
