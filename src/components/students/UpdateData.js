@@ -45,6 +45,7 @@ export default function UpdateData(props) {
     FireManager.editStudent(student).then(() => {
       console.log("Success");
     });
+    props.updateStudent(student);
     console.log(student);
   };
 
@@ -52,13 +53,12 @@ export default function UpdateData(props) {
     <div
       style={{ display: "none" }}
       id={props.student.id}
-      style={{ display: "none" }}
       className="divInputUpdate"
     >
       <TextField
         className="textFieldUpdate"
         variant="outlined"
-        placeholder={props.student.name}
+        placeholder="Name"
         type="text"
         value={name}
         onChange={handleNameChange}
@@ -66,7 +66,7 @@ export default function UpdateData(props) {
       <TextField
         className="textFieldUpdate"
         variant="outlined"
-        placeholder={props.student.surname}
+        placeholder="Surname"
         type="text"
         value={surname}
         onChange={handleSurnameChange}
@@ -74,7 +74,7 @@ export default function UpdateData(props) {
       <TextField
         className="textFieldUpdate"
         variant="outlined"
-        placeholder={props.student.age.toString()}
+        placeholder="Age"
         type="number"
         value={age}
         onChange={handleAgeChange}

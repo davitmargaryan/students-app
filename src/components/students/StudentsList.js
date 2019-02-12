@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 class StudentsList extends Component {
   handleRemove = student => {
     FireManager.removeStudent(student);
+    this.props.removeStudent(student);
   };
 
   hiddenOrShowEdit = student => {
@@ -52,7 +53,10 @@ class StudentsList extends Component {
                   Remove
                 </Button>
               </div>
-              <UpdateData student={student} />
+              <UpdateData
+                updateStudent={this.props.updateStudent}
+                student={student}
+              />
             </div>
           );
         })}
