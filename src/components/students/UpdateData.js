@@ -74,7 +74,7 @@ export default function UpdateData(props) {
       <TextField
         className="textFieldUpdate"
         variant="outlined"
-        placeholder={props.student.age}
+        placeholder={props.student.age.toString()}
         type="number"
         value={age}
         onChange={handleAgeChange}
