@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
 
-export const ThemeContext = React.createContext({
-  color: "blue",
-  toggleTheme: () => {}
-});
+export const ColorContext = React.createContext(
+    {
+        color: 'black',
+        changeColor: ()=>{}
+    }
+)
