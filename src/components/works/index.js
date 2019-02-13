@@ -1,17 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ColorContext } from "../contexts";
 
 function Works() {
+  const colorContext = useContext(ColorContext);
+
   return (
-    <ColorContext.Consumer>
-      {({ color, changeColor }) => {
-        return (
-          <div style={{ color }}>
-            <h1>COMPONENTS WORDS</h1>
-          </div>
-        );
-      }}
-    </ColorContext.Consumer>
+      <div style={{ color: colorContext.color }}>
+        <h1>Works</h1>
+      </div>
   );
 }
 

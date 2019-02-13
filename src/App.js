@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Students from "./components/students";
 import Home from "./components/home";
 import Works from "./components/works";
+import SignIn from "./components/authentication/signin";
+import SignUp from "./components/authentication/signup";
 import Header from "./components/header";
 import { Switch } from "react-router-dom";
 import "./App.css";
@@ -17,48 +19,39 @@ class App extends Component {
       userName: "",
       age: 0,
       colorContext: {
-        color: "blue",
+        color: "black",
         changeColor: this.changeColor
       }
     };
   }
 
   changeColor = () => {
-    let oldColorcontext = this.state.colorContext;
-    if (oldColorcontext.color === "blue") {
-      oldColorcontext.color = "green";
-      this.setState({
-        colorContext: oldColorcontext
-      });
-      return;
-    }
-    oldColorcontext.color = "blue";
+    const {colorContext} = this.state;
+    const newColor = colorContext.color === 'black' ? '#6b6b6b' : 'black';
     this.setState({
-      colorContext: oldColorcontext
+        colorContext: {
+            ...colorContext,
+            color: newColor
+        }
     });
   };
 
   render() {
     const { colorContext } = this.state;
     return (
-      <>
         <Router>
-          <div>
-            <ColorContext.Provider value={colorContext}>
-              <Header />
-            </ColorContext.Provider>
-
+          <ColorContext.Provider value={colorContext}>
+            <Header />
             <Switch>
               <Route path="/students" component={Students} />
-              <ColorContext.Provider value={colorContext}>
-                <Route path="/home" component={Home} />
-                <Route path="/works" component={Works} />
-              </ColorContext.Provider>
+              <Route path="/home" component={Home} />
+              <Route path="/works" component={Works} />
+              <Route path="/signin" component={SignIn} />
+              <Route path="/signup" component={SignUp} />
               <Route path="/" component={Home} />
             </Switch>
-          </div>
+          </ColorContext.Provider>
         </Router>
-      </>
     );
   }
 }
