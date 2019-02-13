@@ -72,6 +72,7 @@ export default function AddStudentsForm(props) {
         />
 
         <Button
+          size="small"
           onClick={handleAddStudentClick}
           variant="contained"
           color="primary"

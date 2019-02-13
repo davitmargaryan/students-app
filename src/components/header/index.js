@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { ColorContext } from "../contexts";
+import { ThemeContext } from "../contexts";
 import "../../App.css";
 
 const styles = {
@@ -57,11 +57,11 @@ function Header(props) {
             color="inherit"
             aria-label="Menu"
           >
-            <ColorContext.Consumer>
+            <ThemeContext.Consumer>
               {({ changeColor }) => {
                 return <MenuIcon onClick={changeColor} />;
               }}
-            </ColorContext.Consumer>
+            </ThemeContext.Consumer>
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow} />
           <Button color="inherit">Login</Button>

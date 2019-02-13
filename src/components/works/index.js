@@ -1,9 +1,9 @@
 import React from "react";
-import { ColorContext } from "../contexts";
+import { ThemeContext } from "../contexts";
 
 function Works() {
   return (
-    <ColorContext.Consumer>
+    <ThemeContext.Consumer>
       {({ color, changeColor }) => {
         return (
           <div style={{ color }}>
@@ -11,7 +11,7 @@ function Works() {
           </div>
         );
       }}
-    </ColorContext.Consumer>
+    </ThemeContext.Consumer>
   );
 }
 

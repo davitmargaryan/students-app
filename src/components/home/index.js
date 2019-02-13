@@ -1,15 +1,15 @@
 import React from "react";
-import { ColorContext } from "../contexts";
+import { ThemeContext } from "../contexts";
 
 function Home() {
   return (
-    <ColorContext.Consumer>
+    <ThemeContext.Consumer>
       {({ color, changeColor }) => (
         <div style={{ color }}>
           <h1>hello hOME</h1>
         </div>
       )}
-    </ColorContext.Consumer>
+    </ThemeContext.Consumer>
   );
 }
 

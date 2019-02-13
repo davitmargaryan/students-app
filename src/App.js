@@ -7,7 +7,7 @@ import Works from "./components/works";
 import Header from "./components/header";
 import { Switch } from "react-router-dom";
 import "./App.css";
-import { ColorContext } from "./components/contexts";
+import { ThemeContext } from "./components/contexts";
 
 class App extends Component {
   constructor(props) {
@@ -44,16 +44,16 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <ColorContext.Provider value={colorContext}>
+            <ThemeContext.Provider value={colorContext}>
               <Header />
-            </ColorContext.Provider>
+            </ThemeContext.Provider>
 
             <Switch>
               <Route path="/students" component={Students} />
-              <ColorContext.Provider value={colorContext}>
+              <ThemeContext.Provider value={colorContext}>
                 <Route path="/home" component={Home} />
                 <Route path="/works" component={Works} />
-              </ColorContext.Provider>
+              </ThemeContext.Provider>
               <Route path="/" component={Home} />
             </Switch>
           </div>

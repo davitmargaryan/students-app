@@ -79,10 +79,12 @@ export default function UpdateData(props) {
         onChange={handleAgeChange}
       />
       <Button
+        size="small"
         variant="contained"
         color="primary"
         className="buttonEdit"
         onClick={handleUpdateData}
+        style={{ marginTop: "-7px", marginLeft: "2px" }}
       >
         upd
       </Button>

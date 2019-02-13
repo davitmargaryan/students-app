@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ColorContext = React.createContext({
+export const ThemeContext = React.createContext({
   color: "black",
   changeColor: () => {}
 });
