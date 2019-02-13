@@ -8,8 +8,8 @@ class StudentsList extends Component {
         const {students} = this.props;
         return (<div className="App">
             {students.map(student =>
-                {return <div key={student.sId}>
-                    <Link to={`/students/${student.sId}`}>{student.name}</Link>
+                {return <div key={student.id}>
+                    <Link to={`/students/${student.id}`}>{student.name}</Link>
                 </div>}
             )}
         </div>);

@@ -11,14 +11,14 @@ class App extends Component {
       age: 0
   };
 
-  componentDidMount(){
-    FireManager.getStudent('awhmXpzGdG5I1PkFFyl1').then(user => {
-      this.setState({username: user.name, age: user.age})
-    })
-  }
+  // componentDidMount(){
+  //   FireManager.getStudent('awhmXpzGdG5I1PkFFyl1').then(user => {
+  //     this.setState({username: user.name, age: user.age})
+  //   })
+  // }
 
   render() {
-    const {username, age} = this.state;
+    // const {username, age} = this.state;
     return (
         <Router>
           <>
