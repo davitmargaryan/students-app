@@ -8,6 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { ColorContext } from "../contexts";
+import "../../App.css";
 
 const styles = {
   root: {
@@ -28,19 +30,40 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Link to="/home">Home</Link>
-          <Link to="/students">Students</Link>
-          <Link to="/works">Work</Link>
+          <div className="divToolbar">
+            <Link to="/home" className="linkNawBar">
+              <Button
+                size="small"
+                variant="contained"
+                color="inherit"
+                className="buttStyle"
+              >
+                Home
+              </Button>
+            </Link>
+            <Link to="/students" className="linkNawBar">
+              <Button size="small" variant="contained" color="inherit">
+                Students
+              </Button>
+            </Link>
+            <Link to="/works" className="linkNawBar">
+              <Button size="small" variant="contained" color="inherit">
+                Work
+              </Button>
+            </Link>
+          </div>
           <IconButton
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
           >
-            <MenuIcon />
+            <ColorContext.Consumer>
+              {({ changeColor }) => {
+                return <MenuIcon onClick={changeColor} />;
+              }}
+            </ColorContext.Consumer>
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            News
-          </Typography>
+          <Typography variant="h6" color="inherit" className={classes.grow} />
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

@@ -1,16 +1,17 @@
+body {
+  background-color: #d0e7ee;
+}
 .App {
-  margin: 0 auto;
+  margin: 10px auto;
   width: 600px;
-  text-align: center;
+  text-align: left;
   border: 2px solid blue;
   border-radius: 5px;
 }
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -21,11 +22,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
 .App-link {
   color: #61dafb;
 }
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,15 +34,12 @@
   }
 }
 /*  */
-
 .textField {
   height: 40px;
 }
-
 .addStudentButton {
   width: 224px;
 }
-
 .containerRemoveEdit {
   border: 2px solid black;
   max-width: 200px;
@@ -58,20 +54,75 @@
   box-shadow: 0 0 20px blue;
   margin-top: 2px;
   font-size: 22px;
-  background-color: #f89d55;
+  background-color: #c9eeff;
+  padding: 3px 5px 5px 5px;
 }
-
+.divItem:hover {
+  background-color: #39bfff;
+  cursor: pointer;
+  transition: 0.5s all;
+}
 .textFieldUpdate {
   height: 30px;
-  width: 170px;
+  width: 178px;
+  display: inline-block;
 }
 .divInputUpdate {
-  padding-top: 5px;
-  background-color: #d4cece;
+  padding-top: 5px 0 0 0;
+  width: 600px;
+  margin: 3px auto;
 }
 .buttonEdit {
   width: 10px;
 }
 .linkStyle {
+  position: absolute;
   text-decoration: none;
+  margin-left: 50px;
+}
+.linkStyle:hover {
+  font-weight: bolder;
+  text-decoration: underline;
+  color: black;
+  transition: 0.2s all;
+}
+.divToolbar {
+  position: absolute;
+  margin-left: 37%;
+}
+.linkNawBar {
+  margin-left: 5px;
+  text-decoration: none;
+}
+.linkNawBar:hover {
+  color: #7c8ce3;
+  font-weight: bolder;
+  transition: 0.5s all;
+}
+.divForInputAdd {
+  width: 300px;
+}
+
+.addStudError {
+  margin: 10px auto;
+  width: 600px;
+  background-color: red;
+  border: 2px transparent;
+  border-radius: 5px;
+  box-shadow: 0 0 20px blue;
+}
+.divInputAdd {
+  border: 2px solid blue;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 3px;
+}
+
+#delButt {
+  left: 462px;
+}
+.textFieldEdit {
+  height: 30px;
+  width: 175px;
+  display: inline-block;
 }
