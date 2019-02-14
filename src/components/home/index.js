@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React  from "react";
 import { ColorContext } from "../contexts";
 
 
@@ -6,7 +6,7 @@ function Home() {
 
   return (
     <ColorContext.Consumer>
-    {({color,changeColor}) => (
+    {({color}) => (
               <div  style = {{color}} >
                 <h1>hello hOME</h1>
               </div>

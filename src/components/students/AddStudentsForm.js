@@ -28,50 +28,61 @@ export default function AddStudentsForm(props) {
       age,
       id
     };
-    props.addStudent(student);
+    
+    if (
+      student.name.trim() !== "" &&
+      student.surname.trim() !== "" &&
+      student.age > 18 &&
+      student.age.trim() !== ""
+    ) {
+      props.addStudent(student);
+      console.log(student);
+    }
+    else {
+      alert('Please neter correct Userdata')
+    }
   };
 
   return (
-    <div>
-      <div>
+    <>
+      <div className="divInputUpdate divInputAdd">
         <TextField
-          className="textField"
-          type="text"
+          className="textFieldUpdate"
           variant="outlined"
+          type="text"
           placeholder="name"
           value={name}
           onChange={handleNameChange}
         />
-      </div>
-      <div>
+     
         <TextField
-          className="textField"
+         className="textFieldUpdate"
           type="text"
           variant="outlined"
           placeholder="surname"
           value={surname}
           onChange={handleSurnameChange}
         />
-      </div>
-      <div>
+     
         <TextField
-          className="textField"
+          className="textFieldUpdate"
           type="age"
           variant="outlined"
           placeholder="number"
           value={age}
           onChange={handleAgeChange}
         />
-      </div>
+      
       <Button
-        className="addStudentButton"
         onClick={handleAddStudentClick}
         variant="contained"
         color="primary"
+        className="buttonEdit"
       >
         ADD
       </Button>
-      <div>{props.addStudentError}</div>
     </div>
+    <div className = 'addStudError'>{props.addStudentError}</div>
+    </>
   );
 }

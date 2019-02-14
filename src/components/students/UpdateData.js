@@ -3,6 +3,7 @@ import FireManager from "../../firebase/FireManager";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
+
 export default function UpdateData(props) {
   const [name, setName] = useState(`${props.student.name}`);
   const [surname, setSurname] = useState(`${props.student.surname}`);
@@ -42,9 +43,13 @@ export default function UpdateData(props) {
     }
     toFixObject(student);
 
-    FireManager.editStudent(student).then(() => {
+    FireManager.editStudent(student).then(
+      () => {
       console.log("Success");
-    });
+    })
+    .catch(err => {
+      console.log(err)
+    }) ;
     props.updateStudent(student);
     console.log(student);
   };
@@ -53,10 +58,10 @@ export default function UpdateData(props) {
     <div
       style={{ display: "none" }}
       id={props.student.id}
-      className="divInputUpdate"
+      className="divInputUpdate editDiv"
     >
       <TextField
-        className="textFieldUpdate"
+        className="textFieldEdit"
         variant="outlined"
         placeholder="Name"
         type="text"
@@ -64,7 +69,7 @@ export default function UpdateData(props) {
         onChange={handleNameChange}
       />
       <TextField
-        className="textFieldUpdate"
+        className="textFieldEdit"
         variant="outlined"
         placeholder="Surname"
         type="text"
@@ -72,7 +77,7 @@ export default function UpdateData(props) {
         onChange={handleSurnameChange}
       />
       <TextField
-        className="textFieldUpdate"
+        className="textFieldEdit"
         variant="outlined"
         placeholder="Age"
         type="number"
@@ -85,7 +90,7 @@ export default function UpdateData(props) {
         className="buttonEdit"
         onClick={handleUpdateData}
       >
-        Update
+       upd
       </Button>
     </div>
   );
