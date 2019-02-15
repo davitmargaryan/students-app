@@ -4,6 +4,7 @@ import FireManager from "../../firebase/FireManager";
 class Profile extends Component {
   state = {
     name: "",
+    surname : "",
     age: ""
   };
 
@@ -13,6 +14,7 @@ class Profile extends Component {
       FireManager.getStudent(studentId).then(student => {
         this.setState({
           name: student.name,
+          surname: student.surname,
           age: student.age
         });
       });
@@ -20,10 +22,10 @@ class Profile extends Component {
   }
 
   render() {
-    const { name, age } = this.state;
+    const { name, surname, age } = this.state;
     return (
       <div>
-        <div>Name: {name}</div>
+        <div>Name: {`${name} ${surname}`}</div>
         <div>Age: {age}</div>
       </div>
     );
