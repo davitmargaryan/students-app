@@ -62,11 +62,7 @@ class Students extends Component {
         FireManager.editStudent(student)
           .then(() => {
             let studentsArr = this.state.students;
-            let index = studentsArr.findIndex(elem => {
-              if (elem.id === student.id) {
-                return elem;
-              }
-            });
+            let index = studentsArr.findIndex(elem => elem.id === student.id);
 
             studentsArr[index] = student;
             this.setState({

@@ -10,7 +10,7 @@ class Profile extends Component {
 
   componentDidMount() {
     const { studentId } = this.props.match.params;
-    if (studentId) {
+   // if (studentId) {
       FireManager.getStudent(studentId).then(student => {
         this.setState({
           name: student.name,
@@ -18,7 +18,7 @@ class Profile extends Component {
           age: student.age
         });
       });
-    }
+    //}
   }
 
   render() {

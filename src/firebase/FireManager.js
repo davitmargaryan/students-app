@@ -34,7 +34,7 @@ export default class FireManager {
   }
 
   static getStudent(studentId) {
-    if (studentId) {
+    //if (studentId) {
       const ref = firestore()
         .collection("students")
         .doc(studentId);
@@ -51,7 +51,7 @@ export default class FireManager {
         .catch(function(error) {
           console.error("Error getting student:", error);
         });
-    }
+    //}
   }
 
   static getStudents() {
