@@ -23,21 +23,18 @@ class App extends Component {
   }
 
   changeColor = () => {
-    let oldColorcontext = this.state.colorContext;
-    if (oldColorcontext.color === "primary") {
-      oldColorcontext.color = "secondary";
-      this.setState({
-        colorContext: oldColorcontext
-      });
-      return;
-    }
-    oldColorcontext.color = "primary";
+    const {colorContext} = this.state;
+    const newColor = colorContext.color === 'black' ? '#6b6b6b' : 'black';
     this.setState({
-      colorContext: oldColorcontext
+        colorContext: {
+          ...colorContext,
+            color: newColor
+        }
     });
   };
 
-  render() {
+
+    render() {
     const { colorContext } = this.state;
     return (
       <>
