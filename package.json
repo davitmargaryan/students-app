@@ -5,7 +5,9 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "email-validator": "^2.0.4",
     "firebase": "^5.8.2",
+    "password-validator": "^4.1.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.3.1",

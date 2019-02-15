@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
 // import { BrowserRouter as Router, Link } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -7,8 +7,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import { ThemeContext } from "../contexts";
+import SettingsIcon from "@material-ui/icons/SettingsBrightnessTwoTone";
+import { ColorContext } from "../contexts";
 import "../../App.css";
 
 const styles = {
@@ -25,6 +25,8 @@ const styles = {
 };
 
 function Header(props) {
+  const colorContext = useContext(ColorContext);
+
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -48,7 +50,7 @@ function Header(props) {
             </Link>
             <Link to="/works" className="linkNawBar">
               <Button size="small" variant="contained" color="inherit">
-                Work
+                Works
               </Button>
             </Link>
           </div>
@@ -56,15 +58,21 @@ function Header(props) {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
+            onClick={colorContext.changeColor}
           >
-            <ThemeContext.Consumer>
-              {({ changeColor }) => {
-                return <MenuIcon onClick={changeColor} />;
-              }}
-            </ThemeContext.Consumer>
+            <SettingsIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow} />
-          <Button color="inherit">Login</Button>
+          <Link to="/signin" className="linkNawBar">
+            <Button size="small" variant="contained" color="inherit">
+              SignIn
+            </Button>
+          </Link>
+          <Link to="/signup" className="linkNawBar">
+            <Button size="small" variant="contained" color="inherit">
+              SignUp
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
