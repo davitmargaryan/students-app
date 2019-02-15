@@ -7,6 +7,8 @@ import Header from "./components/header";
 import { Switch } from "react-router-dom";
 import "./App.css";
 import { ThemeContext } from "./components/contexts";
+import SignIn from "./components/authentication/signin";
+import SignUp from "./components/authentication/signup";
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +26,7 @@ class App extends Component {
 
   changeColor = () => {
     const {colorContext} = this.state;
-    const newColor = colorContext.color === 'black' ? '#6b6b6b' : 'black';
+    const newColor = colorContext.color === 'primary' ? 'secondary' : 'primary';
     this.setState({
         colorContext: {
           ...colorContext,
@@ -46,8 +48,10 @@ class App extends Component {
             <Switch>
               <Route path="/students" component={Students} />
               <ThemeContext.Provider value={colorContext}>
-                <Route path="/home" component={Home} />
-                <Route path="/works" component={Works} />
+                  <Route path="/home" component={Home} />
+                  <Route path="/works" component={Works} />
+                  <Route path="/signin" component={SignIn} />
+                  <Route path="/signup" component={SignUp} />
               </ThemeContext.Provider>
               <Route path="/" component={Home} />
             </Switch>

@@ -59,7 +59,7 @@ function Header(props) {
                     </Link>
                     </Nav.Link>
                     <Typography variant="h6" color="inherit" className={classes.grow} />
-                    <Nav.Link> <Link to="/login" activeClassName="active">
+                    <Nav.Link> <Link to="/signin" activeClassName="active">
                         <Button variant="contained" color={ color } className={classes.button}>
                             Login
                         </Button>
