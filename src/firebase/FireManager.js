@@ -1,5 +1,6 @@
 import { firestore } from "firebase";
 
+
 export default class FireManager {
   static addStudent(student) {
     return firestore()

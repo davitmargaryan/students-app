@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import FireManager from "../../firebase/FireManager";
+import { ThemeContext } from "../contexts"
+import Chip from "@material-ui/core/Chip/Chip";
 
 class Profile extends Component {
   state = {
@@ -22,10 +24,16 @@ class Profile extends Component {
   render() {
     const { name, age } = this.state;
     return (
+        <ThemeContext.Consumer>
+            {({ color, changeColor }) => (
       <div>
-        <div>Name: {name}</div>
-        <div>Age: {age}</div>
+          <Chip
+              color={ color }
+              label={ `Name: ${name} Age: ${age}` }
+          />
       </div>
+            )}
+        </ThemeContext.Consumer>
     );
   }
 }

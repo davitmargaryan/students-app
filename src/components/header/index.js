@@ -1,15 +1,20 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-// import { BrowserRouter as Router, Link } from "react-router-dom";
 import { Link } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import { ThemeContext } from "../contexts";
 import "../../App.css";
+import Switches from "../buttons";
+import 'bootstrap/dist/css/bootstrap.css';
+import { Navbar }  from 'react-bootstrap/';
+import { Nav }  from 'react-bootstrap/';
+import { FormControl }  from 'react-bootstrap/';
+import { Form }  from 'react-bootstrap/'
+
+
+
 
 const styles = {
   root: {
@@ -27,46 +32,51 @@ const styles = {
 function Header(props) {
   const { classes } = props;
   return (
+
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <div className="divToolbar">
-            <Link to="/home" className="linkNawBar">
-              <Button
-                size="small"
-                variant="contained"
-                color="inherit"
-                className="buttStyle"
-              >
-                Home
-              </Button>
-            </Link>
-            <Link to="/students" className="linkNawBar">
-              <Button size="small" variant="contained" color="inherit">
-                Students
-              </Button>
-            </Link>
-            <Link to="/works" className="linkNawBar">
-              <Button size="small" variant="contained" color="inherit">
-                Work
-              </Button>
-            </Link>
-          </div>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <ThemeContext.Consumer>
-              {({ changeColor }) => {
-                return <MenuIcon onClick={changeColor} />;
-              }}
-            </ThemeContext.Consumer>
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow} />
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
+        <ThemeContext.Consumer>
+            {({ color, changeColor }) => {
+        return <Navbar bg={ color } variant="dark">
+            <Navbar.Brand href="/home">Student-App</Navbar.Brand>
+            <Nav className="mr-auto">
+                <Toolbar>
+                   <Nav.Link> <Link to="/home" activeClassName="active">
+                       <Button variant="contained" color={ color } className={classes.button}>
+                           Home
+                       </Button>
+                    </Link>
+                   </Nav.Link>
+                    <Nav.Link> <Link to="/students" activeClassName="active">
+                        <Button variant="contained" color={ color } className={classes.button}>
+                            Students
+                        </Button>
+                    </Link>
+                    </Nav.Link>
+                    <Nav.Link> <Link to="/works" activeClassName="active">
+                        <Button variant="contained" color={ color } className={classes.button}>
+                            Works
+                        </Button>
+                    </Link>
+                    </Nav.Link>
+                    <Typography variant="h6" color="inherit" className={classes.grow} />
+                    <Nav.Link> <Link to="/login" activeClassName="active">
+                        <Button variant="contained" color={ color } className={classes.button}>
+                            Login
+                        </Button>
+                    </Link>
+                    </Nav.Link>
+                </Toolbar>
+            </Nav>
+
+                    Change Theme <Switches onClick={changeColor} />
+
+            <Form inline>
+                <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                <Button variant="outline-info">Search</Button>
+            </Form>
+        </Navbar>
+            }}
+        </ThemeContext.Consumer>
     </div>
   );
 }

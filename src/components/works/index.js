@@ -1,17 +1,17 @@
 import React from "react";
 import { ThemeContext } from "../contexts";
+import Chip from "@material-ui/core/Chip/Chip";
 
 function Works() {
   return (
-    <ThemeContext.Consumer>
-      {({ color, changeColor }) => {
-        return (
-          <div style={{ color }}>
-            <h1>COMPONENTS WORDS</h1>
-          </div>
-        );
-      }}
-    </ThemeContext.Consumer>
+      <ThemeContext.Consumer>
+          {({ color, changeColor }) => (
+              <Chip
+                  color={ color }
+                  label='Hello Works'
+              />
+          )}
+      </ThemeContext.Consumer>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 } from "uuid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import {ThemeContext} from "../contexts";
 
 export default function AddStudentsForm(props) {
   const [name, setName] = useState("");
@@ -70,16 +71,18 @@ export default function AddStudentsForm(props) {
           value={age}
           onChange={handleAgeChange}
         />
-
+          <ThemeContext.Consumer>
+              {({ color, changeColor }) => (
         <Button
           size="small"
           onClick={handleAddStudentClick}
           variant="contained"
-          color="primary"
+          color={ color }
           className="buttonEdit"
         >
           ADD
-        </Button>
+        </Button>)}
+          </ThemeContext.Consumer>
       </div>
       <div className="addStudError">{props.addStudentError}</div>
     </>

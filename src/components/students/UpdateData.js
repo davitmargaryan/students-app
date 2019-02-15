@@ -50,12 +50,12 @@ export default function UpdateData(props) {
 
   return (
     <div
+        className="row"
       style={{ display: "none" }}
       id={props.student.id}
-      className="divInputUpdate editDiv"
     >
       <TextField
-        className="textFieldEdit"
+          className="col-lg-4"
         variant="outlined"
         placeholder="Name"
         type="text"
@@ -63,7 +63,7 @@ export default function UpdateData(props) {
         onChange={handleNameChange}
       />
       <TextField
-        className="textFieldEdit"
+          className="col-lg-4"
         variant="outlined"
         placeholder="Surname"
         type="text"
@@ -71,7 +71,7 @@ export default function UpdateData(props) {
         onChange={handleSurnameChange}
       />
       <TextField
-        className="textFieldEdit"
+          className="col-lg-4"
         variant="outlined"
         placeholder="Age"
         type="number"
@@ -79,14 +79,14 @@ export default function UpdateData(props) {
         onChange={handleAgeChange}
       />
       <Button
+          className="col-lg-4"
         size="small"
         variant="contained"
         color="primary"
-        className="buttonEdit"
         onClick={handleUpdateData}
         style={{ marginTop: "-7px", marginLeft: "2px" }}
       >
-        upd
+        Upd
       </Button>
     </div>
   );

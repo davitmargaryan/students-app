@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import FireManager from "./firebase/FireManager";
 import Students from "./components/students";
 import Home from "./components/home";
 import Works from "./components/works";
@@ -17,7 +16,7 @@ class App extends Component {
       userName: "",
       age: 0,
       colorContext: {
-        color: "blue",
+        color: "primary",
         changeColor: this.changeColor
       }
     };
@@ -25,14 +24,14 @@ class App extends Component {
 
   changeColor = () => {
     let oldColorcontext = this.state.colorContext;
-    if (oldColorcontext.color === "blue") {
-      oldColorcontext.color = "green";
+    if (oldColorcontext.color === "primary") {
+      oldColorcontext.color = "secondary";
       this.setState({
         colorContext: oldColorcontext
       });
       return;
     }
-    oldColorcontext.color = "blue";
+    oldColorcontext.color = "primary";
     this.setState({
       colorContext: oldColorcontext
     });
@@ -46,7 +45,6 @@ class App extends Component {
           <div>
             <ThemeContext.Provider value={colorContext}>
               <Header />
-            </ThemeContext.Provider>
 
             <Switch>
               <Route path="/students" component={Students} />
@@ -56,6 +54,8 @@ class App extends Component {
               </ThemeContext.Provider>
               <Route path="/" component={Home} />
             </Switch>
+            </ThemeContext.Provider>
+
           </div>
         </Router>
       </>
