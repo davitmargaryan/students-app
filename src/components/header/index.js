@@ -32,44 +32,68 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          {/* <div className="divToolbar"> */}
+          <Link to="/home" className="linkNawBar">
+            <Button
+              size="small"
+              // variant="flat"
+              color="inherit"
+              style={{ color: "white" }}
+            >
+              Home
+            </Button>
+          </Link>
+          <Link to="/students" className="linkNawBar">
+            <Button
+              size="small"
+              // variant="flat"
+              color="inherit"
+              style={{ color: "white" }}
+            >
+              Students
+            </Button>
+          </Link>
+          <Link to="/works" className="linkNawBar">
+            <Button
+              size="small"
+              // variant="flat"
+              color="inherit"
+              style={{ color: "white" }}
+            >
+              Works
+            </Button>
+          </Link>
           <div className="divToolbar">
-            <Link to="/home" className="linkNawBar">
-              <Button
-                size="small"
-                variant="contained"
-                color="inherit"
-                className="buttStyle"
-              >
-                Home
-              </Button>
-            </Link>
-            <Link to="/students" className="linkNawBar">
-              <Button size="small" variant="contained" color="inherit">
-                Students
-              </Button>
-            </Link>
-            <Link to="/works" className="linkNawBar">
-              <Button size="small" variant="contained" color="inherit">
-                Works
-              </Button>
-            </Link>
+            <span style={{ fontSize: "23px" }}> Students-App </span>
+
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+              onClick={colorContext.changeColor}
+            >
+              <SettingsIcon />
+            </IconButton>
           </div>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-            onClick={colorContext.changeColor}
-          >
-            <SettingsIcon />
-          </IconButton>
+
           <Typography variant="h6" color="inherit" className={classes.grow} />
           <Link to="/signin" className="linkNawBar">
-            <Button size="small" variant="contained" color="inherit">
+            <Button
+              style={{ color: "white" }}
+              size="small"
+              // variant="flat"
+              color="inherit"
+            >
               SignIn
             </Button>
           </Link>
           <Link to="/signup" className="linkNawBar">
-            <Button size="small" variant="contained" color="inherit">
+            <Button
+              style={{ color: "white" }}
+              size="small"
+              color="inherit"
+              variant="outlined"
+            >
               SignUp
             </Button>
           </Link>
