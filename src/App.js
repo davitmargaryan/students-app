@@ -1,66 +1,50 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import FireManager from "./firebase/FireManager";
-import Students from "./components/students";
 import Home from "./components/home";
+import Students from "./components/students";
 import Works from "./components/works";
+import SignIn from "./components/authentication/signin";
+import SignUp from "./components/authentication/signup";
 import Header from "./components/header";
 import { Switch } from "react-router-dom";
 import "./App.css";
-import {ColorContext}  from './components/contexts'
+import {ThemeContext ,themes} from './components/contexts/ThemeContext';
 
 class App extends Component {
- constructor(props){
-   super(props);
+  constructor(props) {
+    super(props);
 
- this.state = {
-    userName: "",
-    age: 0,
-    colorContext: {
-      color: 'blue',
-      changeColor: this.changeColor
-    }
-  }
-}
+    this.state = {
+      userName: "",
+      age: 0,
+      theme: themes.light,
+    };
 
- changeColor = () => {
-  let oldColorcontext = this.state.colorContext
-  if (oldColorcontext.color === 'blue') {
-    oldColorcontext.color = 'green';
-    this.setState({
-      colorContext:oldColorcontext
-    });
-    return;
+    this.toggleTheme = () => {
+      this.setState(state => ({
+        theme:
+          state.theme === themes.dark
+            ? themes.light
+            : themes.dark,
+      }));
+    };
   }
-  oldColorcontext.color = 'blue';
-  this.setState({
-    colorContext:oldColorcontext
-  });
-}
-  
-  
+
   render() {
-    const { colorContext } = this.state;
     return (
-      <>
         <Router>
-          <div>
-          <ColorContext.Provider value={colorContext}>
-            <Header/>
-          </ColorContext.Provider>
-           
+          <ThemeContext.Provider value={this.state.theme}>
+            <Header   changeTheme={this.toggleTheme} />
             <Switch>
               <Route path="/students" component={Students} />
-              <ColorContext.Provider value={colorContext}>
-                <Route path="/home" component={Home} />
-                <Route path="/works" component={Works} />
-
-              </ColorContext.Provider>
-                <Route path="/" component={Home} />
+              <Route path="/home" component={Home} />
+              <Route path="/works" component={Works} />
+              <Route path="/signin" component={SignIn} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/" component={Home} />
             </Switch>
-          </div>
-        </Router>      
-      </>
+          </ThemeContext.Provider>
+        </Router>
     );
   }
 }

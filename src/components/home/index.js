@@ -1,19 +1,15 @@
-import React  from "react";
-import { ColorContext } from "../contexts";
+import React, { useContext, Component } from "react";
+import {ThemeContext} from '../contexts/ThemeContext';
 
-
-function Home() {
-
+function Home () {
   return (
-    <ColorContext.Consumer>
-    {({color}) => (
-              <div  style = {{color}} >
-                <h1>hello hOME</h1>
-              </div>
-              )
-    }
-</ColorContext.Consumer>
-  );
+    <ThemeContext.Consumer>
+      {(theme) => (
+       <div  style ={theme} className = 'bodyForHome'>
+         <h1>Home</h1>
+       </div>
+      )}
+    </ThemeContext.Consumer>
+  )
 }
-
 export default Home;

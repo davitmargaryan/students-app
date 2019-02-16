@@ -28,18 +28,16 @@ export default function AddStudentsForm(props) {
       age,
       id
     };
-    
     if (
       student.name.trim() !== "" &&
       student.surname.trim() !== "" &&
-      student.age > 18 &&
+      student.age >= 18 &&
       student.age.trim() !== ""
     ) {
       props.addStudent(student);
       console.log(student);
-    }
-    else {
-      alert('Please neter correct Userdata')
+    } else {
+      alert("Please enter correct information");
     }
   };
 
@@ -54,16 +52,15 @@ export default function AddStudentsForm(props) {
           value={name}
           onChange={handleNameChange}
         />
-     
+
         <TextField
-         className="textFieldUpdate"
+          className="textFieldUpdate"
           type="text"
           variant="outlined"
           placeholder="surname"
           value={surname}
           onChange={handleSurnameChange}
         />
-     
         <TextField
           className="textFieldUpdate"
           type="age"
@@ -72,17 +69,17 @@ export default function AddStudentsForm(props) {
           value={age}
           onChange={handleAgeChange}
         />
-      
-      <Button
-        onClick={handleAddStudentClick}
-        variant="contained"
-        color="primary"
-        className="buttonEdit"
-      >
-        ADD
-      </Button>
-    </div>
-    <div className = 'addStudError'>{props.addStudentError}</div>
+
+        <Button
+          onClick={handleAddStudentClick}
+          variant="contained"
+          color="primary"
+          className="buttonEdit"
+        >
+          ADD
+        </Button>
+      </div>
+      <div className="addStudError">{props.addStudentError}</div>
     </>
   );
 }

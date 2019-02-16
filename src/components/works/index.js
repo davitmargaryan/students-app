@@ -1,20 +1,17 @@
-import React from 'react';
-import{ ColorContext} from '../contexts'
+import React, { useContext, Component } from "react";
+import {ThemeContext} from '../contexts/ThemeContext';
 
-function Works () {
-    return (
-        <ColorContext.Consumer>
-        {({color, changeColor}) => {
-                return  (
-                    <div  style = {{color}} >
-                    <h1>COMPONENTS WORDS</h1>
-                  </div>
-                  )
-                
-            }
-        }
-    </ColorContext.Consumer>
-      );
+function Works() {
+
+  return (
+    <ThemeContext.Consumer>
+      {(theme) => (
+       <div  style ={theme} className = 'bodyForHome'>
+         <h1>Works</h1>
+       </div>
+      )}
+    </ThemeContext.Consumer>
+  )
 }
 
 export default Works;

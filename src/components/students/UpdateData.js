@@ -51,7 +51,6 @@ export default function UpdateData(props) {
       console.log(err)
     }) ;
     props.updateStudent(student);
-    console.log(student);
   };
 
   return (
@@ -90,7 +89,7 @@ export default function UpdateData(props) {
         className="buttonEdit"
         onClick={handleUpdateData}
       >
-       upd
+        upd
       </Button>
     </div>
   );
