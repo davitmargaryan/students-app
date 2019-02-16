@@ -9,8 +9,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import AllCheckForInputs from './AllCheckForInputs';
 import {ThemeContext }from '../../contexts/ThemeContext'
+import {isValidEmail, isValidName, isValidPassword} from "../../utils/validator";
 
 
 
@@ -53,16 +53,36 @@ function SignUp(props) {
     const email = useFormInput('');
     const password =  useFormInput(''); 
     const confirmPassword = useFormInput('');
-    
+    const [firstNameValidationErrors, setFirstNameValidationErrors] = useState([]);
+    const [lastNameValidationErrors, setLastNameValidationErrors] = useState([]);
+    const [emailValidationErrors, setEmailValidationErrors] = useState([]);
+    const [passwordValidationErrors, setPasswordValidationErrors] = useState([]);
+    const [confirmPasswordValidationErrors, setConfirmPasswordValidationErrors] = useState([]);
+
+    function isValidSignUpForm() {
+        setFirstNameValidationErrors(isValidName(firstName.value));
+        setLastNameValidationErrors(isValidName(lastName.value));
+        setEmailValidationErrors(isValidEmail(email.value));
+        setPasswordValidationErrors(isValidPassword(password.value));
+        setConfirmPasswordValidationErrors(isValidPassword(confirmPassword.value));
+        if(password.value !== confirmPassword.value){
+            setConfirmPasswordValidationErrors([...confirmPasswordValidationErrors, 'Password and confirmPassword do not match']);
+        }
+
+        if(!firstNameValidationErrors.length &&
+            !lastNameValidationErrors.length &&
+            !emailValidationErrors.length &&
+            !passwordValidationErrors.length &&
+            !confirmPasswordValidationErrors.length){
+
+            return true
+        }
+    };
 
     const onSignUpButtonClick = function () {
-        let isValidPassword = AllCheckForInputs.isValidPassword(password.value);
-        let isValidEmail = AllCheckForInputs.isValidEmail(email.value);
-        let isValidFirstName = AllCheckForInputs.isValidName(firstName.value);
-        let isValidLastName = AllCheckForInputs.isValidName(lastName.value);
-        let isValidConfirmPassword = password.value === confirmPassword.value ? true : false;
-        
-        
+        if(!isValidSignUpForm()){
+            return;
+        }
     };
     
    return  (
@@ -77,7 +97,12 @@ function SignUp(props) {
                 <form className={classes.form}>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="firstName">FirstName</InputLabel>
-                        <Input {...firstName}  id="firstName" name="firstName" autoFocus />
+                        <Input error={!!firstNameValidationErrors.length} {...firstName}  id="firstName" name="firstName" autoFocus />
+                        {!!firstNameValidationErrors.length && (
+                            firstNameValidationErrors.map(error => (
+                                <Typography color="error" key={error}>{error}</Typography>
+                            ))
+                        )}
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="lastName">Last Name</InputLabel>
@@ -89,7 +114,12 @@ function SignUp(props) {
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input {...password}   name="password" type="password" id="password" autoComplete="current-password" />
+                        <Input error={!!passwordValidationErrors.length} {...password}   name="password" type="password" id="password" autoComplete="current-password" />
+                        {!!passwordValidationErrors.length && (
+                            passwordValidationErrors.map(error => (
+                                <Typography color="error" key={error}>{error}</Typography>
+                            ))
+                        )}
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
