@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import { Button } from 'react-bootstrap/';
+import { Form } from 'react-bootstrap/';
+import { Card } from 'react-bootstrap/';
 import withStyles from '@material-ui/core/styles/withStyles';
+import {ThemeContext} from "../../contexts";
+import {isValidEmail, isValidName, isValidPassword} from "../../utils/validator";
 
 const styles = theme => ({
     main: {
@@ -42,83 +40,110 @@ const styles = theme => ({
 
 function SignUp(props) {
     const { classes } = props;
+    const firstName =  useFormInput('');
+    const lastName =  useFormInput('');
+    const email = useFormInput('');
+    const password =  useFormInput('');
+    const confirmPassword = useFormInput('');
+    const [firstNameValidationErrors, setFirstNameValidationErrors] = useState([]);
+    const [lastNameValidationErrors, setLastNameValidationErrors] = useState([]);
+    const [emailValidationErrors, setEmailValidationErrors] = useState([]);
+    const [passwordValidationErrors, setPasswordValidationErrors] = useState([]);
+    const [confirmPasswordValidationErrors, setConfirmPasswordValidationErrors] = useState([]);
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    function isValidSignUpForm() {
+        setFirstNameValidationErrors(isValidName(firstName.value));
+        setLastNameValidationErrors(isValidName(lastName.value));
+        setEmailValidationErrors(isValidEmail(email.value));
+        setPasswordValidationErrors(isValidPassword(password.value));
+        setConfirmPasswordValidationErrors(isValidPassword(confirmPassword.value));
+        if(password.value !== confirmPassword.value){
+            setConfirmPasswordValidationErrors([...confirmPasswordValidationErrors, 'Password and confirmPassword do not match']);
+        }
 
+        if(!firstNameValidationErrors.length &&
+            !lastNameValidationErrors.length &&
+            !emailValidationErrors.length &&
+            !passwordValidationErrors.length &&
+            !confirmPasswordValidationErrors.length){
 
-    const handleFirstNameChange=function (e) {
-        setFirstName(e.target.value)
-    };
-
-    const handleLastNameChange=function (e) {
-        setLastName(e.target.value)
-    };
-
-    const handleEmailChange=function (e) {
-        setEmail(e.target.value)
-    };
-
-    const handlePasswordChange=function (e) {
-        setPassword(e.target.value)
-    };
-
-    const handleConfirmPasswordChange=function (e) {
-        setConfirmPassword(e.target.value)
+            return true
+        }
     };
 
     const onSignUpButtonClick = function () {
-        const someMethod = function (email, password) {
-            //do login
-        };
-        someMethod(email, password);
+        if(!isValidSignUpForm()){
+            return;
+        }
     };
 
-    return (
-        <main className={classes.main}>
-            <CssBaseline />
-            <Paper className={classes.paper}>
-                <Typography component="h1" variant="h5">
-                    Sign up
-                </Typography>
-                <form className={classes.form}>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="firstName">FirstName</InputLabel>
-                        <Input value={firstName} onChange={handleFirstNameChange} id="firstName" name="firstName" autoFocus />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                        <Input value={lastName} onChange={handleLastNameChange} id="lastName" name="lastName"/>
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input value={email} onChange={handleEmailChange} id="email" name="email"/>
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input value={password} onChange={handlePasswordChange} name="password" type="password" id="password" autoComplete="current-password" />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
-                        <Input value={confirmPassword} onChange={handleConfirmPasswordChange} name="confirmPassword" type="password" id="confirmPassword"/>
-                    </FormControl>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={onSignUpButtonClick}
-                    >
-                        Sign up
-                    </Button>
-                </form>
-            </Paper>
-        </main>
-    );
+    return  (
+        <ThemeContext.Consumer>
+            {({ color, changeColor }) => (
+
+                <main className={classes.main}>
+                    <Card className={classes.paper}>
+                        <p className="h1">
+                            Sign up
+                        </p>
+                        <Form className={classes.form}>
+                            <Form.Group margin="normal" required fullWidth>
+                                <Form.Label htmlFor="firstName">FirstName</Form.Label>
+                                <Form.Control error={!!firstNameValidationErrors.length} {...firstName}  id="firstName" name="firstName" autoFocus />
+                                {!!firstNameValidationErrors.length && (
+                                    firstNameValidationErrors.map(error => (
+                                        <p className="text-warning" key={error}>{error}</p>
+                                    ))
+                                )}
+                            </Form.Group>
+                            <Form.Group margin="normal" required fullWidth>
+                                <Form.Label htmlFor="lastName">Last Name</Form.Label>
+                                <Form.Control {...lastName}  id="lastName" name="lastName"/>
+                            </Form.Group>
+                            <Form.Group margin="normal" required fullWidth>
+                                <Form.Label htmlFor="email">Email Address</Form.Label>
+                                <Form.Control  {...email}  id="email" name="email"/>
+                            </Form.Group>
+                            <Form.Group margin="normal" required fullWidth>
+                                <Form.Label htmlFor="password">Password</Form.Label>
+                                <Form.Control error={!!passwordValidationErrors.length} {...password}   name="password" type="password" id="password" autoComplete="current-password" />
+                                {!!passwordValidationErrors.length && (
+                                    passwordValidationErrors.map(error => (
+                                        <p className="text-warning" key={error}>{error}</p>
+                                    ))
+                                )}
+                            </Form.Group>
+                            <Form.Group margin="normal" required fullWidth>
+                                <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
+                                <Form.Control  {...confirmPassword}  name="confirmPassword" type="password" id="confirmPassword"/>
+                            </Form.Group>
+                            <Button
+                                // type="submit"
+                                fullWidth
+                                variant={ color }
+                                className={classes.submit}
+                                onClick={onSignUpButtonClick}
+                            >
+                                Sign up
+                            </Button>
+                        </Form>
+                    </Card>
+                </main>
+            )}
+        </ThemeContext.Consumer>
+    )
+}
+
+function useFormInput(initialValue) {
+
+    const [value, setValue] = useState(initialValue);
+    function handleChange(e){
+        setValue(e.target.value);
+    }
+    return {
+        value,
+        onChange: handleChange
+    };
 }
 
 export default withStyles(styles)(SignUp);
