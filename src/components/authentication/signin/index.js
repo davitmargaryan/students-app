@@ -9,7 +9,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import {ThemeContext }from '../../contexts/ThemeContext'
+import {ThemeContext }from '../../contexts/ThemeContext';
+import {isValidPassword} from "../../utils/validator";
 
 const styles = theme => ({
     main: {
@@ -45,19 +46,19 @@ const styles = theme => ({
 
 function SignIn(props) {
     const { classes } = props;
+    const email = useFormInput('');
+    const password = useFormInput('');
+    const [passwordValidationErrors, setPasswordValidationErrors] = useState([]);
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    function isValidSignUpForm() {
+        setPasswordValidationErrors(isValidPassword(password.value));
 
-    const handleEmailChange=function (e) {
-        setEmail(e.target.value)
-    };
-
-    const handlePasswordChange=function (e) {
-        setPassword(e.target.value)
-    };
-
+        if(!passwordValidationErrors.length ){
+            return true
+        }
+    }
     const onSignInButtonClick = function () {
+        isValidSignUpForm();
       const someMethod = function (email, password) {
           //do login
       };
@@ -80,11 +81,16 @@ function SignIn(props) {
                 <form className={classes.form}>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input value={email} onChange={handleEmailChange} id="email" name="email" autoComplete="email" autoFocus />
+                        <Input {...email}   id="email" name="email" autoComplete="email" autoFocus />
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input value={password} onChange={handlePasswordChange} name="password" type="password" id="password" autoComplete="current-password" />
+                        <Input error={!!passwordValidationErrors.length} {...password}   name="password" type="password" id="password" autoComplete="current-password" />
+                        {!!passwordValidationErrors.length && (
+                            passwordValidationErrors.map(error => (
+                                <Typography color="error" key={error}>{error}</Typography>
+                            ))
+                        )}
                     </FormControl>
                     <Button
                         type="submit"
@@ -103,5 +109,15 @@ function SignIn(props) {
         </ThemeContext.Consumer>
       )
 }
-
+function useFormInput(initialValue) {
+    
+    const [value, setValue] = useState(initialValue);
+    function handleChange(e){
+        setValue(e.target.value);
+    }
+    return {
+        value,
+        onChange: handleChange
+    };
+}
 export default withStyles(styles)(SignIn);

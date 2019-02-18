@@ -29,6 +29,7 @@ export default class FireManager {
   }
 
   static getStudent(student) {
+    debugger;
     if (student.id) {
       const ref = firestore()
         .collection("students")
@@ -50,6 +51,7 @@ export default class FireManager {
   }
 
   static getStudents() {
+    debugger;
     const studentsRef = firestore().collection("students");
     console.log(" = ",studentsRef)
     return studentsRef

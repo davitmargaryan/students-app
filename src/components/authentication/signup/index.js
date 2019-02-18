@@ -10,8 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {ThemeContext }from '../../contexts/ThemeContext'
-import {isValidEmail, isValidName, isValidPassword} from "../../utils/validator";
-
+import {isValidEmail, isValidName, isValidPassword} from "../../utils/validator"; 
+import { createUserInfirebase } from "../../../firebase/fireConfig";
+// import { getMaxListeners } from 'cluster';
+// import firebase from "firebase";
 
 
 const styles = theme => ({
@@ -80,9 +82,11 @@ function SignUp(props) {
     };
 
     const onSignUpButtonClick = function () {
-        if(!isValidSignUpForm()){
-            return;
-        }
+       // isValidSignUpForm();
+       let email = 'vazgenddavtyan@getMaxListeners.com';
+       let password = 'vazgenV12';
+       createUserInfirebase(email, password);
+       
     };
     
    return  (
@@ -106,11 +110,16 @@ function SignUp(props) {
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                        <Input {...lastName}  id="lastName" name="lastName"/>
+                        <Input  error={!!lastNameValidationErrors.length}  {...lastName}  id="lastName" name="lastName"/>
+                        {!! lastNameValidationErrors.length && (
+                            lastNameValidationErrors.map(error => (
+                                <Typography color="error" key={error}>{error}</Typography>
+                            ))
+                        )}
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input  {...email}  id="email" name="email"/>
+                        <Input {...email}  id="email" name="email"/>
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="password">Password</InputLabel>
@@ -123,7 +132,12 @@ function SignUp(props) {
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
-                        <Input  {...confirmPassword}  name="confirmPassword" type="password" id="confirmPassword"/>
+                        <Input error={!!confirmPasswordValidationErrors.length} {...confirmPassword}  name="confirmPassword" type="password" id="confirmPassword"/>
+                        {!!confirmPasswordValidationErrors.length && (
+                           confirmPasswordValidationErrors.map(error => (
+                                <Typography color="error" key={error}>{error}</Typography>
+                            ))
+                        )}
                     </FormControl>
                     <Button
                         // type="submit"
