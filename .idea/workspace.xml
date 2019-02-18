@@ -1106,11 +1106,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53298000" />
+    <option name="totallyTimeSpent" value="53373000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1368" height="705" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19153675" />
       <window_info id="Structure" order="1" weight="0.25" />
