@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import { Button } from 'react-bootstrap/';
+import { Form } from 'react-bootstrap/';
+import { Card } from 'react-bootstrap/';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {ThemeContext} from "../../contexts";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserGraduate } from '@fortawesome/free-solid-svg-icons'
 
 
 const styles = theme => ({
@@ -30,10 +27,6 @@ const styles = theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-    },
-    avatar: {
-        margin: theme.spacing.unit,
-        backgroundColor: theme.palette.secondary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -67,41 +60,43 @@ function SignIn(props) {
 
     return (
         <main className={classes.main}>
-            <CssBaseline />
-            <Paper className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
+            <Card className={classes.paper}>
+                <ThemeContext.Consumer>
+                    {({ color, changeColor }) => {
+                    let bgcolr = ( color === "primary" ) ? "#3084f6" : "#6d757c";
+                    let iconcolr = ( color === "primary" ) ? "#6d757c" : "#3084f6" ;
+                    return    <FontAwesomeIcon icon='user-graduate' color={ iconcolr } size="4x"  style={{ backgroundColor: bgcolr }}/>
+                        }}
+                </ThemeContext.Consumer>
+                <p className="h1">
                     Sign in
-                </Typography>
-                <form className={classes.form}>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input value={email} onChange={handleEmailChange} id="email" name="email" autoComplete="email" autoFocus />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input value={password} onChange={handlePasswordChange} name="password" type="password" id="password" autoComplete="current-password" />
-                    </FormControl>
+                </p>
+                <Form >
+                    <Form.Group margin="normal" required fullWidth>
+                        <Form.Label htmlFor="email">Email Address</Form.Label>
+                        <Form.Control value={email} placeholder="Enter email" onChange={handleEmailChange} id="email" name="email" autoComplete="email" autoFocus />
+                    </Form.Group>
+                    <Form.Group margin="normal" required fullWidth>
+                        <Form.Label htmlFor="password">Password</Form.Label>
+                        <Form.Control value={password} placeholder="Enter password" onChange={handlePasswordChange} name="password" type="password" id="password" autoComplete="current-password" />
+                    </Form.Group>
                     <ThemeContext.Consumer>
                         {({ color, changeColor }) => (
 
                     <Button
                         type="submit"
                         fullWidth
-                        variant="contained"
-                        color={ color }
+                        variant={ color }
                         className={classes.submit}
                         onClick={onSignInButtonClick}
                     >
                         Sign in
                     </Button> )}
                     </ThemeContext.Consumer>
-                </form>
-            </Paper>
+                </Form>
+            </Card>
         </main>
     );
 }
-
+library.add(faUserGraduate);
 export default withStyles(styles)(SignIn);

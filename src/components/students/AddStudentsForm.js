@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import { Form } from 'react-bootstrap/';
+import { Col } from 'react-bootstrap/';
+import { Row } from 'react-bootstrap/';
+import { Button } from 'react-bootstrap/';
 import {ThemeContext} from "../contexts";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function AddStudentsForm(props) {
   const [name, setName] = useState("");
@@ -44,47 +49,54 @@ export default function AddStudentsForm(props) {
 
   return (
     <>
-      <div className="divInputUpdate divInputAdd">
-        <TextField
-          className="textFieldUpdate"
-          variant="outlined"
-          type="text"
-          placeholder="name"
-          value={name}
-          onChange={handleNameChange}
-        />
-
-        <TextField
-          className="textFieldUpdate"
-          type="text"
-          variant="outlined"
-          placeholder="surname"
-          value={surname}
-          onChange={handleSurnameChange}
-        />
-
-        <TextField
-          className="textFieldUpdate"
-          type="age"
-          variant="outlined"
-          placeholder="number"
-          value={age}
-          onChange={handleAgeChange}
-        />
-          <ThemeContext.Consumer>
-              {({ color, changeColor }) => (
-        <Button
-          size="small"
-          onClick={handleAddStudentClick}
-          variant="contained"
-          color={ color }
-          className="buttonEdit"
-        >
-          ADD
-        </Button>)}
-          </ThemeContext.Consumer>
-      </div>
+      <Form className="divInputUpdate divInputAdd">
+        <Row>
+          <Col>
+            <Form.Control
+              className="textFieldUpdate"
+              variant="outlined"
+              type="text"
+              placeholder="name"
+              value={name}
+              onChange={handleNameChange}
+            />
+          </Col>
+            <Col>
+            <Form.Control
+              className="textFieldUpdate"
+              type="text"
+              variant="outlined"
+              placeholder="surname"
+              value={surname}
+              onChange={handleSurnameChange}
+            />
+           </Col>
+            <Col>
+          <Form.Control
+            className="textFieldUpdate"
+            type="age"
+            variant="outlined"
+            placeholder="number"
+            value={age}
+            onChange={handleAgeChange}
+          />
+            </Col>
+        <Col>
+            <ThemeContext.Consumer>
+                {({ color, changeColor }) => (
+          <Button
+            onClick={handleAddStudentClick}
+            variant={ color }
+          >
+            <FontAwesomeIcon icon="user-plus"/>
+          </Button>)}
+            </ThemeContext.Consumer>
+        </Col>
+        </Row>
+      </Form>
       <div className="addStudError">{props.addStudentError}</div>
     </>
   );
 }
+
+library.add(faUserPlus);

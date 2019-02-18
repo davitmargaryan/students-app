@@ -1,79 +1,49 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { Button } from 'react-bootstrap/';
 import { ThemeContext } from "../contexts";
 import "../../App.css";
-import Switches from "../buttons";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar }  from 'react-bootstrap/';
 import { Nav }  from 'react-bootstrap/';
-import { FormControl }  from 'react-bootstrap/';
-import { Form }  from 'react-bootstrap/'
 
-
-
-
-const styles = {
-  root: {
-    flexGrow: 1
-  },
-  grow: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  }
-};
 
 function Header(props) {
-  const { classes } = props;
   return (
-
-    <div className={classes.root}>
+    <div>
         <ThemeContext.Consumer>
             {({ color, changeColor }) => {
+              let btnColor = (color === "primary") ? "info" : "light";
         return <Navbar bg={ color } variant="dark">
             <Navbar.Brand href="/home">Student-App</Navbar.Brand>
             <Nav className="mr-auto">
-                <Toolbar>
                    <Nav.Link> <Link to="/home" activeClassName="active">
-                       <Button variant="contained" color={ color } className={classes.button}>
+                       <Button variant={ btnColor }>
                            Home
                        </Button>
                     </Link>
                    </Nav.Link>
                     <Nav.Link> <Link to="/students" activeClassName="active">
-                        <Button variant="contained" color={ color } className={classes.button}>
+                        <Button variant={ btnColor } >
                             Students
                         </Button>
                     </Link>
                     </Nav.Link>
                     <Nav.Link> <Link to="/works" activeClassName="active">
-                        <Button variant="contained" color={ color } className={classes.button}>
+                        <Button variant={ btnColor } >
                             Works
                         </Button>
                     </Link>
                     </Nav.Link>
-                    <Typography variant="h6" color="inherit" className={classes.grow} />
                     <Nav.Link> <Link to="/signin" activeClassName="active">
-                        <Button variant="contained" color={ color } className={classes.button}>
+                        <Button variant={ btnColor } >
                             Login
                         </Button>
                     </Link>
                     </Nav.Link>
-                </Toolbar>
             </Nav>
 
-                    Change Theme <Switches onClick={changeColor} />
-
-            <Form inline>
-                <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                <Button variant="outline-info">Search</Button>
-            </Form>
+            <Button variant={ btnColor } onClick={ changeColor }> Change theme </Button>
         </Navbar>
             }}
         </ThemeContext.Consumer>
@@ -81,4 +51,4 @@ function Header(props) {
   );
 }
 
-export default withStyles(styles)(Header);
+export default Header;

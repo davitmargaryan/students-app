@@ -2,10 +2,32 @@ import React, { Component } from "react";
 import FireManager from "../../firebase/FireManager";
 import { Link } from "react-router-dom";
 import UpdateData from "./UpdateData";
-import Button from "@material-ui/core/Button";
-import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
+import { Button } from 'react-bootstrap/';
 import {ThemeContext} from "../contexts";
 import { Card } from 'react-bootstrap/'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserTimes } from '@fortawesome/free-solid-svg-icons'
+import withStyles from "@material-ui/core/styles/withStyles";
+
+const styles = theme => ({
+    editBtn: {
+        maxWidth: '120px',
+        borderRadius: "100px"
+    },
+
+    removeBtn: {
+        top: "5px",
+        position: "absolute",
+        right: "20px",
+        maxWidth: '40px',
+        borderRadius: "25px"
+    },
+
+    card: {
+        borderRadius: "20px"
+    },
+});
 
 class StudentsList extends Component {
   handleRemove = student => {
@@ -24,7 +46,8 @@ class StudentsList extends Component {
   };
 
   render() {
-    const { students } = this.props;
+      const { classes } = this.props;
+      const { students } = this.props;
     let bool = true;
     return (
       <div className="row">
@@ -42,38 +65,41 @@ class StudentsList extends Component {
                     }
                       bool = !bool;
                     return (
-                        <Card className="col-lg-4" key={student.id} bg={ cardColor } text="white" style={{ width: '18rem' }}>
-                            <Card.Header>
+                        <div className="col-lg-4">
+                        <Card className={classes.card}  key={student.id} bg={ cardColor } text="white">
+                            <Link to={`/students/${student.id}`} onlyActiveOnIndex style={{ textDecoration: 'none', color: "white"  }}> <Card.Header color='white'>
                                 { `${student.name} ${student.surname}`.toUpperCase() }
-                                <Link to={`/students/${student.id}`}>
-                                {student.name + "  " + student.surname}
-                                </Link>
-                            </Card.Header>
-                            <Card.Body className="row">
                                 <Button
-                                    className="col-lg-6"
-                                    variant="contained"
-                                    color={ color }
+                                    className={`col ${classes.removeBtn}`}
+                                    variant={ color }
+                                    onClick={() => {
+                                        this.handleRemove(student);
+                                    }}>
+                                    <FontAwesomeIcon icon="user-times"
+                                                     onClick={() => {
+                                                         this.handleRemove(student);
+                                                     }}
+                                    />
+                                </Button>
+                            </Card.Header>
+                            </Link>
+                            <Card.Body className>
+                              <div className="row">
+                                <div className="col-lg-6">
+                                <Button
+                                    className={`col ${classes.editBtn}`}
+                                    variant={ color }
                                     onClick={() => {
                                         this.hiddenOrShowEdit(student);
                                     }}>
                                     {" "}
                                     Edit
                                 </Button>
-                                <Button
-                                    className="col-lg-6"
-                                    variant="contained"
-                                    color={ color }
-                                    onClick={() => {
-                                      this.handleRemove(student);
-                                    }}
-                                >
-                                    <DeleteTwoToneIcon
-                                        onClick={() => {
-                                          this.handleRemove(student);
-                                        }}
-                                    />
-                                </Button>
+                                </div>
+                                <div className="col-lg-6">
+
+                                </div>
+                                </div>
                                 <UpdateData
                                     className="col"
                                     updateStudent={this.props.updateStudent}
@@ -84,6 +110,7 @@ class StudentsList extends Component {
                                 </Card.Text>
                             </Card.Body>
                          </Card>
+                        </div>
                   )}}
               </ThemeContext.Consumer>
           );
@@ -93,4 +120,7 @@ class StudentsList extends Component {
   }
 }
 
-export default StudentsList;
+
+
+library.add(faUserTimes);
+export default withStyles(styles)(StudentsList) ;

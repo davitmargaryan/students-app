@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import FireManager from "../../firebase/FireManager";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import { Button } from 'react-bootstrap/';
+import { Form } from 'react-bootstrap/';
+import { Col } from 'react-bootstrap/';
+import { Row } from 'react-bootstrap/';
+import { ThemeContext } from "../contexts";
 
 export default function UpdateData(props) {
   const [name, setName] = useState(`${props.student.name}`);
@@ -49,45 +52,39 @@ export default function UpdateData(props) {
   };
 
   return (
-    <div
-        className="row"
-      style={{ display: "none" }}
-      id={props.student.id}
-    >
-      <TextField
-          className="col-lg-4"
-        variant="outlined"
-        placeholder="Name"
-        type="text"
-        value={name}
-        onChange={handleNameChange}
-      />
-      <TextField
-          className="col-lg-4"
-        variant="outlined"
-        placeholder="Surname"
-        type="text"
-        value={surname}
-        onChange={handleSurnameChange}
-      />
-      <TextField
-          className="col-lg-4"
-        variant="outlined"
-        placeholder="Age"
-        type="number"
-        value={age}
-        onChange={handleAgeChange}
-      />
-      <Button
-          className="col-lg-4"
-        size="small"
-        variant="contained"
-        color="primary"
-        onClick={handleUpdateData}
-        style={{ marginTop: "-7px", marginLeft: "2px" }}
-      >
-        Upd
-      </Button>
+      <ThemeContext.Consumer>
+          {({ color, changeColor }) => (
+      <div>
+      <Form id={props.student.id} style={{ display: "none" }}>
+          <Row>
+              <Col>
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control placeholder= {name} onChange={handleNameChange} />
+              </Col>
+              <Col>
+                  <Form.Label>Surname</Form.Label>
+                  <Form.Control placeholder={surname} onChange={handleSurnameChange} />
+              </Col>
+              <Col>
+                  <Form.Label>Age</Form.Label>
+                  <Form.Control placeholder={ age } onChange={handleAgeChange} >
+                  </Form.Control>
+              </Col>
+              <Col>
+                  <Button
+                      className="col"
+                      variant= { color }
+                      style={{ marginTop: "30px" }}
+                      onClick={handleUpdateData}>
+                      Upd
+                  </Button>
+              </Col>
+
+          </Row>
+      </Form>
+
     </div>
+            )}
+              </ThemeContext.Consumer>
   );
 }
