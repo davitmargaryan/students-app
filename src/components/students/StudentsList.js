@@ -67,8 +67,10 @@ class StudentsList extends Component {
                     return (
                         <div className="col-lg-4">
                         <Card className={classes.card}  key={student.id} bg={ cardColor } text="white">
-                            <Link to={`/students/${student.id}`} onlyActiveOnIndex style={{ textDecoration: 'none', color: "white"  }}> <Card.Header color='white'>
-                                { `${student.name} ${student.surname}`.toUpperCase() }
+                           <Card.Header color='white'>
+                               <Link to={`/students/${student.id}`} onlyActiveOnIndex style={{ textDecoration: 'none', color: "white"  }}>
+                               { `${student.name} ${student.surname}`.toUpperCase() }
+                               </Link>
                                 <Button
                                     className={`col ${classes.removeBtn}`}
                                     variant={ color }
@@ -82,7 +84,7 @@ class StudentsList extends Component {
                                     />
                                 </Button>
                             </Card.Header>
-                            </Link>
+
                             <Card.Body className>
                               <div className="row">
                                 <div className="col-lg-6">
