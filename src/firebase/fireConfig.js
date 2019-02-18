@@ -19,13 +19,4 @@ export  function initFirebase() {
     // Initialize Cloud Firestore through Firebase
     // firebase.firestore().settings({timestampsInSnapshots: true});
 }
-
-export function createUserInfirebase(firstName, lastName, email, password) {
-    firebase.auth().createUserWithEmailAndPassword(firstName, lastName, email, password).catch(function(error) {
-        // Handle Errors here.
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        // ...
-      });
-} 
-export default {initFirebase, createUserInfirebase}
+export default {initFirebase}

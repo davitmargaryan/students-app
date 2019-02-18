@@ -1,7 +1,17 @@
 import { firestore } from "firebase";
+import firebase from 'firebase';
 
 export default class FireManager {
-  static addStudent(student) {
+  static createUserInFirebase(email, password, firstName, lastName) {
+    debugger;
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(user=>{
+          debugger;
+        }, error=> {
+            debugger;
+        });
+    }
+
+    static addStudent(student) {
     if (student.id) {
       return firestore()
         .collection("students")

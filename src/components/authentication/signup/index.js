@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {ThemeContext }from '../../contexts/ThemeContext'
 import {isValidEmail, isValidName, isValidPassword} from "../../utils/validator";
+import FireManage from '../../../firebase/FireManager'
 
 
 
@@ -80,9 +81,12 @@ function SignUp(props) {
     };
 
     const onSignUpButtonClick = function () {
+        debugger;
         if(!isValidSignUpForm()){
             return;
         }
+        debugger;
+        FireManage.createUserInFirebase(email.value, password.value, firstName.value, lastName.value);
     };
     
    return  (
