@@ -8,6 +8,7 @@ class Profile extends Component {
   };
 
   componentDidMount() {
+    debugger;
     const { studentId } = this.props.match.params;
     if (studentId) {
       FireManager.getStudent(studentId).then(student => {

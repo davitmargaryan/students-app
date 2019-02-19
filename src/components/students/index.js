@@ -8,17 +8,20 @@ import AddStudentsForm from "./AddStudentsForm";
 class Students extends Component {
   state = {
     students: [],
-    addStudentError: ""
+    addStudentError: "",
+    getStudentsError: ""
   };
 
   componentDidMount() {
-    FireManager.getStudents().then(students => {
-      this.setState({ students });
+    FireManager.getStudents().then(querySnapshot => {
+        this.setState({students: querySnapshot.docs.map(doc => doc.data())})
+    }).catch(err => {
+        this.setState({getStudentsError: err.message})
     })
   }
 
   render() {
-    const { students, addStudentError } = this.state;
+    const { students, addStudentError, getStudentsError } = this.state;
     const StudentsListHOC = () => {
       const addStudent = student => {
         if (!student.id) {
@@ -82,6 +85,7 @@ class Students extends Component {
           <StudentsList
             updateStudent={updateStudent}
             students={students}
+            getStudentsError={getStudentsError}
             removeStudent={removeStudent}
           />
           <AddStudentsForm
@@ -95,8 +99,8 @@ class Students extends Component {
       <Router>
         <>
           <Route exact path="/" component={StudentsListHOC} />
-          <Route exact path="/students" component={StudentsListHOC} />
           <Route path="/students/:studentId" component={Profile} />
+          <Route exact path="/students" component={StudentsListHOC} />
         </>
       </Router>
     );

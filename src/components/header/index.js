@@ -11,7 +11,7 @@ import SettingsIcon from "@material-ui/icons/SettingsBrightnessTwoTone";
 // import { ColorContext } from "../contexts";
 import "../../App.css";
 // import {ThemeContext} from '../contexts/ThemeContext';
-
+import FireManager from '../../firebase/FireManager'
 
 const styles = {
   root: {
@@ -34,6 +34,10 @@ function Header(props) {
       if (!changeColorbutton) {changeColorbutton = '#023d38'};
       changeColorbutton = "#a1e1e8";
      
+  }
+  
+  function onSignOutBtnClick() {
+    FireManager.signOut();
   }
   const { classes } = props;
   return (
@@ -81,6 +85,9 @@ function Header(props) {
               SignUp
             </Button>
           </Link>
+          <Button onClick={onSignOutBtnClick} size="small" variant="contained" color="inherit">
+            SignOut
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

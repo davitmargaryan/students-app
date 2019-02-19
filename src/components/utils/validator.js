@@ -35,7 +35,7 @@ export const isValidPassword = password => {
 };
 
 export const isValidEmail = email => {
-    return EmailValidator.validate(email);
+    return EmailValidator.validate(email)? []: ['Invalid Email'];
 };
 
 export const isValidName = name =>{

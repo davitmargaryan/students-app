@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {ThemeContext }from '../../contexts/ThemeContext'
 import {isValidEmail, isValidName, isValidPassword} from "../../utils/validator";
-import FireManage from '../../../firebase/FireManager'
+import FireManager from '../../../firebase/FireManager'
 
 
 
@@ -61,21 +61,29 @@ function SignUp(props) {
     const [confirmPasswordValidationErrors, setConfirmPasswordValidationErrors] = useState([]);
 
     function isValidSignUpForm() {
-        setFirstNameValidationErrors(isValidName(firstName.value));
-        setLastNameValidationErrors(isValidName(lastName.value));
-        setEmailValidationErrors(isValidEmail(email.value));
-        setPasswordValidationErrors(isValidPassword(password.value));
-        setConfirmPasswordValidationErrors(isValidPassword(confirmPassword.value));
+        const firstNameErrors = isValidName(firstName.value);
+        setFirstNameValidationErrors(firstNameErrors);
+
+        const lastNameErrors = isValidName(lastName.value);
+        setLastNameValidationErrors(lastNameErrors);
+
+        const emailErrors = isValidEmail(email.value);
+        setEmailValidationErrors(emailErrors);
+
+        const passwordErrors = isValidPassword(password.value);
+        setPasswordValidationErrors(passwordErrors);
+
+        const confirmPasswordErrors = isValidPassword(confirmPassword.value);
         if(password.value !== confirmPassword.value){
-            setConfirmPasswordValidationErrors([...confirmPasswordValidationErrors, 'Password and confirmPassword do not match']);
+            confirmPasswordErrors.push('Password and confirmPassword do not match');
         }
+        setConfirmPasswordValidationErrors(confirmPasswordErrors);
 
-        if(!firstNameValidationErrors.length &&
-            !lastNameValidationErrors.length &&
-            !emailValidationErrors.length &&
-            !passwordValidationErrors.length &&
-            !confirmPasswordValidationErrors.length){
-
+        if(!firstNameErrors.length &&
+            !lastNameErrors.length &&
+            !emailErrors.length &&
+            !passwordErrors.length &&
+            !confirmPasswordErrors.length){
             return true
         }
     };
@@ -86,7 +94,7 @@ function SignUp(props) {
             return;
         }
         debugger;
-        FireManage.createUserInFirebase(email.value, password.value, firstName.value, lastName.value);
+        FireManager.createUserInFirebase(email.value, password.value, firstName.value, lastName.value);
     };
     
    return  (
@@ -110,11 +118,21 @@ function SignUp(props) {
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                        <Input {...lastName}  id="lastName" name="lastName"/>
+                        <Input error={!!lastNameValidationErrors.length} {...lastName}  id="lastName" name="lastName"/>
+                        {!!lastNameValidationErrors.length && (
+                            lastNameValidationErrors.map(error => (
+                                <Typography color="error" key={error}>{error}</Typography>
+                            ))
+                        )}
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input  {...email}  id="email" name="email"/>
+                        <Input  error={!!emailValidationErrors.length} {...email}  id="email" name="email"/>
+                        {!!emailValidationErrors.length && (
+                            emailValidationErrors.map(error => (
+                                <Typography color="error" key={error}>{error}</Typography>
+                            ))
+                        )}
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="password">Password</InputLabel>
@@ -127,7 +145,12 @@ function SignUp(props) {
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
-                        <Input  {...confirmPassword}  name="confirmPassword" type="password" id="confirmPassword"/>
+                        <Input  error={!!confirmPasswordValidationErrors.length} {...confirmPassword}  name="confirmPassword" type="password" id="confirmPassword"/>
+                        {!!confirmPasswordValidationErrors.length && (
+                            confirmPasswordValidationErrors.map(error => (
+                                <Typography color="error" key={error}>{error}</Typography>
+                            ))
+                        )}
                     </FormControl>
                     <Button
                         // type="submit"

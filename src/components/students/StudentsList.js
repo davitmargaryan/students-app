@@ -23,55 +23,55 @@ class StudentsList extends Component {
   };
 
   render() {
-    const { students } = this.props;
+    const { students, getStudentsError } = this.props;
 
     return (
       <ThemeContext.Consumer>
         {(theme) => (
           <div className = 'bodyForStudentList' style ={theme}>
           <div className="App" > 
-          {students.map(student => {
-            return (
-              <div key={student.id} className="divItem">
-                <Button
-                  className="editButt"
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
+          {(students && students.length)? (students.map(student => {
+              return (
+                  <div key={student.id} className="divItem">
+                      <Button
+                          className="editButt"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => {
                     this.hiddenOrShowEdit(student);
                   }}
-                >
-                  {" "}
-                  Edit
-                </Button>
+                      >
+                          {" "}
+                          Edit
+                      </Button>
 
-                <Link className="linkStyle" to={`/students/${student.id}`}>
-                  {student.name + "  " + student.surname}
-                </Link>
+                      <Link className="linkStyle" to={`/students/${student.id}`}>
+                          {student.name + "  " + student.surname}
+                      </Link>
 
-                <Button
-                  id="delButt"
-                  variant="contained"
-                  color="primary"
-                  style={{ backgroundColor: "#b00d0d" }}
-                  onClick={() => {
+                      <Button
+                          id="delButt"
+                          variant="contained"
+                          color="primary"
+                          style={{ backgroundColor: "#b00d0d" }}
+                          onClick={() => {
                     this.handleRemove(student);
                   }}
-                >
-                  <DeleteTwoToneIcon
-                    onClick={() => {
+                      >
+                          <DeleteTwoToneIcon
+                              onClick={() => {
                       this.handleRemove(student);
                     }}
-                  />
-                </Button>
+                          />
+                      </Button>
 
-                <UpdateData
-                  updateStudent={this.props.updateStudent}
-                  student={student}
-                />
-              </div>
-            );
-          })}
+                      <UpdateData
+                          updateStudent={this.props.updateStudent}
+                          student={student}
+                      />
+                  </div>
+              );
+          })): <div>{getStudentsError}</div> }
         </div>
         </div>
         )

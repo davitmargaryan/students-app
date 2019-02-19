@@ -9,6 +9,7 @@ import Header from "./components/header";
 import { Switch } from "react-router-dom";
 import "./App.css";
 import {ThemeContext ,themes} from './components/contexts/ThemeContext';
+import firebase from 'firebase';
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +29,15 @@ class App extends Component {
             : themes.dark,
       }));
     };
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      debugger;
+      if (user) {
+        // User is signed in.
+      } else {
+        // No user is signed in.
+      }
+    });
   }
 
   render() {

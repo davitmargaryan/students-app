@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {ThemeContext }from '../../contexts/ThemeContext'
+import FireManager from '../../../firebase/FireManager'
 
 const styles = theme => ({
     main: {
@@ -57,11 +58,8 @@ function SignIn(props) {
         setPassword(e.target.value)
     };
 
-    const onSignInButtonClick = function () {
-      const someMethod = function (email, password) {
-          //do login
-      };
-      someMethod(email, password);
+    const onSignInButtonClick = function (e) {
+        FireManager.login(email, password);
     };
 
     
@@ -87,7 +85,6 @@ function SignIn(props) {
                         <Input value={password} onChange={handlePasswordChange} name="password" type="password" id="password" autoComplete="current-password" />
                     </FormControl>
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"

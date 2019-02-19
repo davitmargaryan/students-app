@@ -3,15 +3,28 @@ import firebase from 'firebase';
 
 export default class FireManager {
   static createUserInFirebase(email, password, firstName, lastName) {
-    debugger;
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(user=>{
-          debugger;
+        return firebase.auth().createUserWithEmailAndPassword(email, password).then(user=>{
+          const {uid} = user.user;
+          firestore()
+              .collection("users")
+              .doc(uid)
+              .set({firstName, lastName})
         }, error=> {
-            debugger;
         });
     }
 
-    static addStudent(student) {
+  static login(email, password) {
+    debugger;
+    return firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      debugger;
+    });
+  }
+
+  static signOut(){
+    return firebase.auth().signOut();
+  }
+
+  static addStudent(student) {
     if (student.id) {
       return firestore()
         .collection("students")
@@ -38,13 +51,12 @@ export default class FireManager {
     }
   }
 
-  static getStudent(student) {
-    if (student.id) {
-      const ref = firestore()
+  static getStudent(studentId) {
+    const ref = firestore()
         .collection("students")
-        .doc(student.id);
+        .doc(studentId);
 
-      return ref
+    return ref
         .get()
         .then(doc => {
           if (doc.exists) {
@@ -56,19 +68,10 @@ export default class FireManager {
         .catch(function(error) {
           console.error("Error getting student:", error);
         });
-    }
   }
 
   static getStudents() {
     const studentsRef = firestore().collection("students");
-    console.log(" = ",studentsRef)
-    return studentsRef
-      .get()
-      .then(function(querySnapshot) {
-        return querySnapshot.docs.map(doc => doc.data());
-      })
-      .catch(function(error) {
-        console.error("Error getting students:", error);
-      });
+    return studentsRef.get();
   }
 }
