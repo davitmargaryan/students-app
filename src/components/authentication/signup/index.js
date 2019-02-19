@@ -83,9 +83,10 @@ function SignUp(props) {
 
     const onSignUpButtonClick = function () {
        // isValidSignUpForm();
-       let email = 'vazgenddavtyan@getMaxListeners.com';
+       let email = 'vazgenddavtyan@gmail.com';
        let password = 'vazgenV12';
-       createUserInfirebase(email, password);
+      
+       createUserInfirebase(email,password);
        
     };
     
